@@ -1,0 +1,5 @@
+{
+  "sentiment_only_model_f1": 0.324,
+  "price_only_model_f1": 0.3085,
+  "combined_model_f1": 0.2944
+}
