@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  jupyter:
+    build: .
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - TICKER=${TICKER:-AAPL}
+      - START_DATE=${START_DATE:-2018-01-01}
+      - END_DATE=${END_DATE:-2023-12-31}
+      - TRAIN_END_DATE=${TRAIN_END_DATE:-2021-12-31}
+      - UP_DOWN_THRESHOLD=${UP_DOWN_THRESHOLD:-0.005}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/api"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
